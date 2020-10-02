@@ -45,6 +45,7 @@ export class VeiculoListComponent implements OnInit {
 
   delete(rowData: Veiculo): void {
     this.lista = this.lista.filter(e => e !== rowData);
+    localStorage.setItem('veiculos', JSON.stringify(this.lista));
     this.messageService.add({severity: 'success', detail: 'Registro removido.'});
   }
 
