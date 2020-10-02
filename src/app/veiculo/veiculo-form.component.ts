@@ -2,6 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {BaseFormComponent} from '../base/base-form.component';
 import {FormBuilder, FormControl, Validators} from '@angular/forms';
 import {Veiculo} from './veiculo';
+import {MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-veiculo-form',
@@ -15,7 +16,8 @@ export class VeiculoFormComponent extends BaseFormComponent implements OnInit {
 
   @Output() addEvent = new EventEmitter<Veiculo>();
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+              private messageService: MessageService) {
     super();
   }
 
@@ -39,6 +41,7 @@ export class VeiculoFormComponent extends BaseFormComponent implements OnInit {
     if (this.form.valid) {
         this.addEvent.emit(this.objeto);
         this.onHide();
+        this.messageService.add({severity: 'success', detail: 'Registro salvo.'});
     } else {
       this.validaForm();
     }

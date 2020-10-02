@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Veiculo} from './veiculo';
 import {VeiculoFormComponent} from './veiculo-form.component';
+import {MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-veiculo-list',
@@ -13,7 +14,7 @@ export class VeiculoListComponent implements OnInit {
 
   @ViewChild(VeiculoFormComponent, {static: false}) formComponent: VeiculoFormComponent;
 
-  constructor() {
+  constructor(private messageService: MessageService) {
   }
 
   ngOnInit(): void {
@@ -30,6 +31,7 @@ export class VeiculoListComponent implements OnInit {
   novo(): void {
     this.formComponent.editando = false;
     this.formComponent.displayForm = true;
+    this.indexEditando = null;
   }
 
   adicionar(event: Veiculo): void {
@@ -39,11 +41,11 @@ export class VeiculoListComponent implements OnInit {
       this.lista.push(event);
     }
     localStorage.setItem('veiculos', JSON.stringify(this.lista));
-    this.indexEditando = null;
   }
 
   delete(rowData: Veiculo): void {
     this.lista = this.lista.filter(e => e !== rowData);
+    this.messageService.add({severity: 'success', detail: 'Registro removido.'});
   }
 
   editar(rowData: Veiculo): void {

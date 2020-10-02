@@ -7,7 +7,6 @@ import {CardModule} from 'primeng/card';
 import {InputTextModule} from 'primeng/inputtext';
 import {MatButtonModule} from '@angular/material/button';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MessageService} from 'primeng/api';
 
 @NgModule({
   imports: [
@@ -27,7 +26,6 @@ import {MessageService} from 'primeng/api';
     LoginComponent,
   ],
   providers: [
-    MessageService,
   ],
 })
 export class LoginModule {

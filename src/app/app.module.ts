@@ -11,6 +11,7 @@ import {ToastModule} from 'primeng/toast';
 import {InicioComponent} from './inicio/inicio.component';
 import {AcessorioModule} from './acessorio/acessorio.module';
 import {VeiculoModule} from './veiculo/veiculo.module';
+import {MessageService} from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,9 @@ import {VeiculoModule} from './veiculo/veiculo.module';
     AcessorioModule,
     VeiculoModule,
   ],
-  providers: [],
+  providers: [
+    MessageService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
