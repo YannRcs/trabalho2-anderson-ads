@@ -1,0 +1,27 @@
+mat-toolbar {
+  box-shadow: 0 0 4px 6px lightgray;
+  position: fixed;
+  z-index: 1000;
+  height: 3.5rem;
+  top: 0;
+  div:first-child {
+    display: flex;
+    span {
+      margin-top: .2em;
+    }
+  }
+}
+
+.sidebar {
+  margin-top: .5em;
+  .mat-button {
+    border-radius: 0;
+    text-align: left;
+    height: 3em;
+    width: 100%;
+    mat-icon {
+      margin-right: .4em;
+      margin-left: .4em;
+    }
+  }
+}

@@ -1,0 +1,42 @@
+<mat-toolbar *ngIf="showNav()" color="primary">
+  <div class="col-6">
+    <button (click)="toggleSidebar()" mat-icon-button>
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span class="ml-2">Trabalho Enderson</span>
+  </div>
+  <div class="col-6 text-right">
+    <button [matMenuTriggerFor]="userMenu" mat-button>
+      <mat-icon class="mr-1">person</mat-icon>
+      <span>{{usuario}}</span>
+    </button>
+    <mat-menu #userMenu="matMenu">
+      <button (click)="sair()" mat-menu-item>Sair</button>
+    </mat-menu>
+  </div>
+</mat-toolbar>
+
+<p-sidebar *ngIf="showNav()"
+           [(visible)]="displaySidebar"
+           [modal]="false"
+           [showCloseIcon]="false"
+           [style]="{marginTop: '3.5rem', width: '17em', padding: '0'}">
+  <div class="sidebar">
+
+    <button (click)="navigate('inicio')" mat-button>
+      <mat-icon>home</mat-icon>
+      <span>Início</span>
+    </button>
+
+    <button (click)="navigate('veiculo')" mat-button>
+      <mat-icon>directions_car</mat-icon>
+      <span>Veículos</span>
+    </button>
+
+    <button (click)="navigate('acessorio')" mat-button>
+      <mat-icon>add_business</mat-icon>
+      <span>Acessórios</span>
+    </button>
+
+  </div>
+</p-sidebar>
