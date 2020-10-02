@@ -1,1 +1,74 @@
-<p>veiculo-list works!</p>
+<p-card header="Veículos">
+
+  <div class="text-right mb-4 mr-4">
+    <button (click)="novo()"
+            mat-raised-button
+            color="primary"
+            title="Novo">Novo</button>
+  </div>
+
+  <p-table [paginator]="lista?.length > 0"
+           [rows]="5"
+           [showCurrentPageReport]="true"
+           [value]="lista"
+           currentPageReportTemplate="{last} de {totalRecords} registros.">
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="id">
+          <span>Id</span>
+          <p-sortIcon field="id"></p-sortIcon>
+        </th>
+        <th pSortableColumn="modelo">
+          <span>Modelo</span>
+          <p-sortIcon field="modelo"></p-sortIcon>
+        </th>
+        <th pSortableColumn="cor">
+          <span>Cor</span>
+          <p-sortIcon field="cor"></p-sortIcon>
+        </th>
+        <th pSortableColumn="anoFabricacao">
+          <span>Ano</span>
+          <p-sortIcon field="anoFabricacao"></p-sortIcon>
+        </th>
+        <th pSortableColumn="placa">
+          <span>Placa</span>
+          <p-sortIcon field="placa"></p-sortIcon>
+        </th>
+        <th pSortableColumn="valor">
+          <span>Valor</span>
+          <p-sortIcon field="valor"></p-sortIcon>
+        </th>
+        <th class="text-center">Ações</th>
+      </tr>
+    </ng-template>
+
+    <ng-template let-rowData pTemplate="body">
+      <tr>
+        <td>{{rowData?.id}}</td>
+        <td>{{rowData?.modelo}}</td>
+        <td>{{rowData?.cor}}</td>
+        <td>{{rowData?.anoFabricacao}}</td>
+        <td>{{rowData?.placa}}</td>
+        <td>{{rowData?.valor | currency: 'BRL'}}</td>
+        <td>
+          <div class="acoes">
+            <button mat-icon-button title="Editar">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button title="Remover">
+              <mat-icon>delete_forever</mat-icon>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td class="text-center" colspan="7">Sem registros.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>
+
+<app-veiculo-form></app-veiculo-form>

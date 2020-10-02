@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 
 @Component({
@@ -7,7 +7,7 @@ import {Router} from '@angular/router';
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss']
 })
-export class NavComponent implements OnInit {
+export class NavComponent {
 
   displaySidebar = false;
   usuario: string = null;
@@ -15,32 +15,30 @@ export class NavComponent implements OnInit {
   constructor(private router: Router) {
   }
 
-  ngOnInit(): void {
-  }
-
-  toggleSidebar(): void {
-    this.displaySidebar = !this.displaySidebar;
-  }
-
   navigate(url: string): void {
-    this.router.navigateByUrl(url);
+    this.router.navigateByUrl(url).then(() => this.displaySidebar = false);
   }
 
   showNav(): boolean {
-    const showNav = this.router.url.indexOf('login') < 0;
-    if (this.usuario == null && showNav) {
+    const ehTelaDeLogin = this.router.url.indexOf('login') > 0;
+    if (this.usuario == null && !ehTelaDeLogin) {
+      const u = localStorage.getItem('usuario_logado');
+      if (u == null) {
+        this.navigate('login');
+        return ;
+      }
       setTimeout(() => {
-        this.usuario = localStorage.getItem('usuarioLogado');
+        this.usuario = u;
         this.displaySidebar = true;
       }, 500);
     }
-    return showNav;
+    return !ehTelaDeLogin;
   }
 
   sair(): void {
-    this.displaySidebar = false;
-    localStorage.removeItem('usuarioLogado');
-    this.usuario = null;
+    localStorage.removeItem('usuario_logado');
     this.navigate('login');
+    this.displaySidebar = false;
+    this.usuario = null;
   }
 }

@@ -1,1 +1,82 @@
-<p>veiculo-form works!</p>
+<p-dialog (onHide)="onHide()"
+          [(visible)]="displayForm"
+          [modal]="true"
+          [style]="{width: '1000px'}"
+          header="Veículo">
+  <form [formGroup]="form">
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group">
+            <label for="id">Id:</label>
+            <input [(ngModel)]="objeto.id"
+                   formControlName="id"
+                   id="id"
+                   pInputText>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="modelo">Modelo:</label>
+            <input [(ngModel)]="objeto.modelo"
+                   formControlName="modelo"
+                   id="modelo"
+                   pInputText>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="cor">Cor:</label>
+            <input [(ngModel)]="objeto.cor"
+                   formControlName="cor"
+                   id="cor"
+                   pInputText>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="anoFabricacao">Ano:</label>
+            <input [(ngModel)]="objeto.anoFabricacao"
+                   formControlName="anoFabricacao"
+                   id="anoFabricacao"
+                   pInputText
+                   type="number">
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="placa">Placa:</label>
+            <input [(ngModel)]="objeto.placa"
+                   formControlName="placa"
+                   id="placa"
+                   pInputText>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="valor">Valor:</label>
+            <input [(ngModel)]="objeto.valor"
+                   formControlName="valor"
+                   id="valor"
+                   pInputText
+                   type="number">
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <p-footer>
+    <div>
+      <button (click)="displayForm = false"
+              color="primary"
+              mat-raised-button
+              title="Cancelar">Cancelar
+      </button>
+      <button (click)="salvar()"
+              color="primary"
+              mat-raised-button
+              title="Adicionar">Adicionar
+      </button>
+    </div>
+  </p-footer>
+</p-dialog>

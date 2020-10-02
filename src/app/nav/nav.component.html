@@ -1,9 +1,9 @@
 <mat-toolbar *ngIf="showNav()" color="primary">
   <div class="col-6">
-    <button (click)="toggleSidebar()" mat-icon-button>
+    <button (click)="displaySidebar = !displaySidebar" mat-icon-button>
       <mat-icon>menu</mat-icon>
     </button>
-    <span class="ml-2">Trabalho Enderson</span>
+    <span class="ml-2">Trabalho</span>
   </div>
   <div class="col-6 text-right">
     <button [matMenuTriggerFor]="userMenu" mat-button>
@@ -20,23 +20,19 @@
            [(visible)]="displaySidebar"
            [modal]="false"
            [showCloseIcon]="false"
-           [style]="{marginTop: '3.5rem', width: '17em', padding: '0'}">
+           [style]="{marginTop: '3.5rem', width: '16em', padding: '0'}">
   <div class="sidebar">
-
     <button (click)="navigate('inicio')" mat-button>
       <mat-icon>home</mat-icon>
       <span>Início</span>
     </button>
-
     <button (click)="navigate('veiculo')" mat-button>
       <mat-icon>directions_car</mat-icon>
       <span>Veículos</span>
     </button>
-
     <button (click)="navigate('acessorio')" mat-button>
-      <mat-icon>add_business</mat-icon>
+      <mat-icon>plumbing</mat-icon>
       <span>Acessórios</span>
     </button>
-
   </div>
 </p-sidebar>
