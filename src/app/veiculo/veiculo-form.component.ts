@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {BaseFormComponent} from '../base/base-form.component';
 import {FormBuilder, FormControl, Validators} from '@angular/forms';
 import {Veiculo} from './veiculo';
@@ -11,6 +11,9 @@ export class VeiculoFormComponent extends BaseFormComponent implements OnInit {
 
   objeto = new Veiculo();
   displayForm = false;
+  editando = false;
+
+  @Output() addEvent = new EventEmitter<Veiculo>();
 
   constructor(private fb: FormBuilder) {
     super();
@@ -18,7 +21,6 @@ export class VeiculoFormComponent extends BaseFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      id: new FormControl('', Validators.required),
       modelo: new FormControl('', Validators.required),
       cor: new FormControl('', Validators.required),
       anoFabricacao: new FormControl('', Validators.required),
@@ -29,12 +31,14 @@ export class VeiculoFormComponent extends BaseFormComponent implements OnInit {
 
   onHide(): void {
     this.objeto = new Veiculo();
+    this.displayForm = false;
     this.form.reset();
   }
 
   salvar(): void {
     if (this.form.valid) {
-
+        this.addEvent.emit(this.objeto);
+        this.onHide();
     } else {
       this.validaForm();
     }

@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Veiculo} from './veiculo';
 import {VeiculoFormComponent} from './veiculo-form.component';
 
@@ -6,18 +6,50 @@ import {VeiculoFormComponent} from './veiculo-form.component';
   selector: 'app-veiculo-list',
   templateUrl: './veiculo-list.component.html',
 })
-export class VeiculoListComponent {
+export class VeiculoListComponent implements OnInit {
+
+  lista: Veiculo[] = [];
+  indexEditando: number;
 
   @ViewChild(VeiculoFormComponent, {static: false}) formComponent: VeiculoFormComponent;
-
-  lista: Veiculo[] = [
-    {id: 1, modelo: 'Corsa', cor: 'branco', anoFabricacao: 2012, placa: 'AIOP-123', valor: 24000},
-  ];
 
   constructor() {
   }
 
+  ngOnInit(): void {
+    this.carregaLista();
+  }
+
+  carregaLista(): void {
+    const jsonVeiculos = localStorage.getItem('veiculos');
+    if (jsonVeiculos != null) {
+      this.lista = JSON.parse(jsonVeiculos);
+    }
+  }
+
   novo(): void {
+    this.formComponent.editando = false;
+    this.formComponent.displayForm = true;
+  }
+
+  adicionar(event: Veiculo): void {
+    if (this.indexEditando != null) {
+      this.lista[this.indexEditando] = event;
+    } else {
+      this.lista.push(event);
+    }
+    localStorage.setItem('veiculos', JSON.stringify(this.lista));
+    this.indexEditando = null;
+  }
+
+  delete(rowData: Veiculo): void {
+    this.lista = this.lista.filter(e => e !== rowData);
+  }
+
+  editar(rowData: Veiculo): void {
+    this.indexEditando = this.lista.findIndex(e => e === rowData);
+    this.formComponent.objeto = JSON.parse(JSON.stringify(rowData));
+    this.formComponent.editando = true;
     this.formComponent.displayForm = true;
   }
 }
