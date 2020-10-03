@@ -1,4 +1,4 @@
-<p-dialog (onHide)="onHide()"
+<p-dialog (onHide)="resetForm()"
           [(visible)]="displayForm"
           [header]="editando ? 'Veículo (editando)' : 'Veículo'"
           [modal]="true"
@@ -10,6 +10,7 @@
           <div class="form-group">
             <label for="modelo">Modelo:</label>
             <input [(ngModel)]="objeto.modelo"
+                   autocomplete="off"
                    formControlName="modelo"
                    id="modelo"
                    maxlength="90"
@@ -20,6 +21,7 @@
           <div class="form-group">
             <label for="cor">Cor:</label>
             <input [(ngModel)]="objeto.cor"
+                   autocomplete="off"
                    formControlName="cor"
                    id="cor"
                    maxlength="40"
@@ -31,6 +33,7 @@
             <label for="anoFabricacao">Ano:</label>
             <input [(ngModel)]="objeto.anoFabricacao"
                    appNumbersOnly
+                   autocomplete="off"
                    formControlName="anoFabricacao"
                    id="anoFabricacao"
                    maxlength="4"
@@ -41,6 +44,7 @@
           <div class="form-group">
             <label for="placa">Placa:</label>
             <input [(ngModel)]="objeto.placa"
+                   autocomplete="off"
                    formControlName="placa"
                    id="placa"
                    maxlength="10"
@@ -52,6 +56,7 @@
             <label for="valor">Valor:</label>
             <input [(ngModel)]="objeto.valor"
                    appNumbersOnly
+                   autocomplete="off"
                    formControlName="valor"
                    id="valor"
                    maxlength="10"

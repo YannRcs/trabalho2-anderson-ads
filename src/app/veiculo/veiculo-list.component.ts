@@ -10,7 +10,9 @@ import {MessageService} from 'primeng/api';
 export class VeiculoListComponent implements OnInit {
 
   lista: Veiculo[] = [];
-  indexEditando: number;
+  listaFiltrada: Veiculo[] = [];
+  indexEditando: number = null;
+  filtro = '';
 
   @ViewChild(VeiculoFormComponent, {static: false}) formComponent: VeiculoFormComponent;
 
@@ -28,22 +30,22 @@ export class VeiculoListComponent implements OnInit {
     }
   }
 
-  novo(): void {
-    this.formComponent.editando = false;
-    this.formComponent.displayForm = true;
+  adicionar(): void {
+    this.formComponent.abrir();
     this.indexEditando = null;
   }
 
-  adicionar(event: Veiculo): void {
-    if (this.indexEditando != null) {
-      this.lista[this.indexEditando] = event;
-    } else {
-      this.lista.push(event);
-    }
+  salvar(event: Veiculo): void {
+    this.indexEditando != null
+      ? this.lista[this.indexEditando] = event
+      : this.lista.push(event);
+
     localStorage.setItem('veiculos', JSON.stringify(this.lista));
+    this.messageService.add({severity: 'success', detail: 'Registro salvo.'});
+    this.filtrar();
   }
 
-  delete(rowData: Veiculo): void {
+  deletar(rowData: Veiculo): void {
     this.lista = this.lista.filter(e => e !== rowData);
     localStorage.setItem('veiculos', JSON.stringify(this.lista));
     this.messageService.add({severity: 'success', detail: 'Registro removido.'});
@@ -51,8 +53,11 @@ export class VeiculoListComponent implements OnInit {
 
   editar(rowData: Veiculo): void {
     this.indexEditando = this.lista.findIndex(e => e === rowData);
-    this.formComponent.objeto = JSON.parse(JSON.stringify(rowData));
-    this.formComponent.editando = true;
-    this.formComponent.displayForm = true;
+    this.formComponent.abrir(rowData);
+  }
+
+  filtrar(): void {
+    setTimeout(() => this.listaFiltrada =
+      this.lista.filter(e => JSON.stringify(e).includes(this.filtro)), 500);
   }
 }

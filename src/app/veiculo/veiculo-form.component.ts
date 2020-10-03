@@ -2,7 +2,6 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {BaseFormComponent} from '../base/base-form.component';
 import {FormBuilder, FormControl, Validators} from '@angular/forms';
 import {Veiculo} from './veiculo';
-import {MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-veiculo-form',
@@ -16,8 +15,7 @@ export class VeiculoFormComponent extends BaseFormComponent implements OnInit {
 
   @Output() addEvent = new EventEmitter<Veiculo>();
 
-  constructor(private fb: FormBuilder,
-              private messageService: MessageService) {
+  constructor(private fb: FormBuilder) {
     super();
   }
 
@@ -31,7 +29,7 @@ export class VeiculoFormComponent extends BaseFormComponent implements OnInit {
     });
   }
 
-  onHide(): void {
+  resetForm(): void {
     this.objeto = new Veiculo();
     this.displayForm = false;
     this.form.reset();
@@ -40,10 +38,19 @@ export class VeiculoFormComponent extends BaseFormComponent implements OnInit {
   salvar(): void {
     if (this.form.valid) {
         this.addEvent.emit(this.objeto);
-        this.onHide();
-        this.messageService.add({severity: 'success', detail: 'Registro salvo.'});
+        this.resetForm();
     } else {
       this.validaForm();
     }
+  }
+
+  abrir(objeto?: Veiculo): void {
+    if (objeto) {
+      this.objeto = JSON.parse(JSON.stringify(objeto));
+      this.editando = true;
+    } else {
+      this.editando = false;
+    }
+    this.displayForm = true;
   }
 }

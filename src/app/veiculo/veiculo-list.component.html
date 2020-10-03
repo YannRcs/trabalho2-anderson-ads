@@ -1,18 +1,22 @@
 <p-card header="Veículos">
 
-  <div class="text-right mb-4 mr-4">
-    <button (click)="novo()"
+  <div class="container mb-4">
+    <input (ngModelChange)="filtrar()"
+           [(ngModel)]="filtro"
+           autocomplete="off"
+           class="pesquisar"
+           maxlength="90"
+           pInputText
+           placeholder="Pesquisar">
+    <button (click)="adicionar()"
             color="primary"
-            mat-raised-button
-            title="Novo">Novo
+            mat-fab
+            title="Novo">
+      <mat-icon>add</mat-icon>
     </button>
   </div>
 
-  <p-table [paginator]="lista?.length > 0"
-           [rows]="5"
-           [showCurrentPageReport]="true"
-           [value]="lista"
-           currentPageReportTemplate="{last} de {totalRecords} registros.">
+  <p-table [value]="filtro.length > 1 ? listaFiltrada : lista">
     <ng-template pTemplate="header">
       <tr>
         <th pSortableColumn="modelo">
@@ -38,7 +42,6 @@
         <th class="text-center">Ações</th>
       </tr>
     </ng-template>
-
     <ng-template let-rowData pTemplate="body">
       <tr>
         <td>{{rowData?.modelo}}</td>
@@ -51,14 +54,13 @@
             <button (click)="editar(rowData)" mat-icon-button title="Editar">
               <mat-icon>edit</mat-icon>
             </button>
-            <button (click)="delete(rowData)" mat-icon-button title="Remover">
+            <button (click)="deletar(rowData)" mat-icon-button title="Remover">
               <mat-icon>delete_forever</mat-icon>
             </button>
           </div>
         </td>
       </tr>
     </ng-template>
-
     <ng-template pTemplate="emptymessage">
       <tr>
         <td class="text-center" colspan="7">Sem registros.</td>
@@ -67,4 +69,5 @@
   </p-table>
 </p-card>
 
-<app-veiculo-form (addEvent)="adicionar($event)"></app-veiculo-form>
+<app-veiculo-form (addEvent)="salvar($event)">
+</app-veiculo-form>
