@@ -11,7 +11,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {DialogModule} from 'primeng/dialog';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {InputTextModule} from 'primeng/inputtext';
-import {DirectivesModule} from '../directives/directives.module';
+import {InputNumberModule} from 'primeng/inputnumber';
 
 @NgModule({
   imports: [
@@ -25,8 +25,8 @@ import {DirectivesModule} from '../directives/directives.module';
     DialogModule,
     ReactiveFormsModule,
     InputTextModule,
-    DirectivesModule,
     FormsModule,
+    InputNumberModule,
   ],
   declarations: [
     VeiculoFormComponent,

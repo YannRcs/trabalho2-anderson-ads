@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -12,6 +12,10 @@ import {InicioComponent} from './inicio/inicio.component';
 import {AcessorioModule} from './acessorio/acessorio.module';
 import {VeiculoModule} from './veiculo/veiculo.module';
 import {MessageService} from 'primeng/api';
+import {registerLocaleData} from '@angular/common';
+import ptBr from '@angular/common/locales/pt';
+
+registerLocaleData(ptBr);
 
 @NgModule({
   declarations: [
@@ -30,6 +34,7 @@ import {MessageService} from 'primeng/api';
     VeiculoModule,
   ],
   providers: [
+    {provide: LOCALE_ID, useValue: 'pt'},
     MessageService,
   ],
   bootstrap: [AppComponent]

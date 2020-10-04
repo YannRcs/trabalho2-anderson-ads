@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {Veiculo} from './veiculo';
 import {VeiculoFormComponent} from './veiculo-form.component';
 import {MessageService} from 'primeng/api';
+import {throttle} from '../decorators/throttle';
 
 @Component({
   selector: 'app-veiculo-list',
@@ -56,8 +57,8 @@ export class VeiculoListComponent implements OnInit {
     this.formComponent.abrir(rowData);
   }
 
+  @throttle()
   filtrar(): void {
-    setTimeout(() => this.listaFiltrada =
-      this.lista.filter(e => Veiculo.toStringValues(e).includes(this.filtro)), 500);
+    this.listaFiltrada = this.lista.filter(e => Veiculo.toStringValues(e).includes(this.filtro));
   }
 }

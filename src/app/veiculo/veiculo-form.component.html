@@ -31,13 +31,11 @@
         <div class="col-6">
           <div class="form-group">
             <label for="anoFabricacao">Ano:</label>
-            <input [(ngModel)]="objeto.anoFabricacao"
-                   appNumbersOnly
-                   autocomplete="off"
-                   formControlName="anoFabricacao"
-                   id="anoFabricacao"
-                   maxlength="4"
-                   pInputText>
+            <p-inputNumber [(ngModel)]="objeto.anoFabricacao"
+                           [useGrouping]="false"
+                           formControlName="anoFabricacao"
+                           id="anoFabricacao"
+                           maxlength="4"></p-inputNumber>
           </div>
         </div>
         <div class="col-6">
@@ -54,13 +52,14 @@
         <div class="col-6">
           <div class="form-group">
             <label for="valor">Valor:</label>
-            <input [(ngModel)]="objeto.valor"
-                   appNumbersOnly
-                   autocomplete="off"
-                   formControlName="valor"
-                   id="valor"
-                   maxlength="10"
-                   pInputText>
+            <p-inputNumber [(ngModel)]="objeto.valor"
+                           [maxFractionDigits]="2"
+                           [minFractionDigits]="2"
+                           formControlName="valor"
+                           id="valor"
+                           maxlength="15"
+                           mode="decimal"
+                           prefix="R$ "></p-inputNumber>
           </div>
         </div>
       </div>
