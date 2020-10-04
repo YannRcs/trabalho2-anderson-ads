@@ -58,6 +58,6 @@ export class VeiculoListComponent implements OnInit {
 
   filtrar(): void {
     setTimeout(() => this.listaFiltrada =
-      this.lista.filter(e => JSON.stringify(e).includes(this.filtro)), 500);
+      this.lista.filter(e => Veiculo.toStringValues(e).includes(this.filtro)), 500);
   }
 }
