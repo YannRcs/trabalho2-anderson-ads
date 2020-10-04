@@ -1,55 +1,28 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Injector, OnInit, ViewChild} from '@angular/core';
 import {Veiculo} from './veiculo';
 import {VeiculoFormComponent} from './veiculo-form.component';
-import {MessageService} from 'primeng/api';
 import {throttle} from '../decorators/throttle';
+import {BaseListComponent} from '../base/base-list.component';
 
 @Component({
   selector: 'app-veiculo-list',
   templateUrl: './veiculo-list.component.html',
 })
-export class VeiculoListComponent implements OnInit {
-
-  lista: Veiculo[] = [];
-  listaFiltrada: Veiculo[] = [];
-  indexEditando: number = null;
-  filtro = '';
+export class VeiculoListComponent extends BaseListComponent<Veiculo> implements OnInit {
 
   @ViewChild(VeiculoFormComponent, {static: false}) formComponent: VeiculoFormComponent;
 
-  constructor(private messageService: MessageService) {
+  constructor(public injector: Injector) {
+    super(injector, 'veiculos');
   }
 
   ngOnInit(): void {
     this.carregaLista();
   }
 
-  carregaLista(): void {
-    const jsonVeiculos = localStorage.getItem('veiculos');
-    if (jsonVeiculos != null) {
-      this.lista = JSON.parse(jsonVeiculos);
-    }
-  }
-
   adicionar(): void {
-    this.formComponent.abrir();
     this.indexEditando = null;
-  }
-
-  salvar(event: Veiculo): void {
-    this.indexEditando != null
-      ? this.lista[this.indexEditando] = event
-      : this.lista.push(event);
-
-    localStorage.setItem('veiculos', JSON.stringify(this.lista));
-    this.messageService.add({severity: 'success', detail: 'Registro salvo.'});
-    this.filtrar();
-  }
-
-  deletar(rowData: Veiculo): void {
-    this.lista = this.lista.filter(e => e !== rowData);
-    localStorage.setItem('veiculos', JSON.stringify(this.lista));
-    this.messageService.add({severity: 'success', detail: 'Registro removido.'});
+    this.formComponent.abrir();
   }
 
   editar(rowData: Veiculo): void {
@@ -59,6 +32,10 @@ export class VeiculoListComponent implements OnInit {
 
   @throttle()
   filtrar(): void {
-    this.listaFiltrada = this.lista.filter(e => Veiculo.toStringValues(e).includes(this.filtro));
+    this.listaFiltrada = null;
+    if (this.filtro.length > 0) {
+      this.listaFiltrada = this.lista
+        .filter(e => Veiculo.toStringValues(e).includes(this.filtro));
+    }
   }
 }

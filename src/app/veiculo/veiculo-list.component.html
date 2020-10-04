@@ -16,7 +16,7 @@
     </button>
   </div>
 
-  <p-table [value]="filtro.length > 1 ? listaFiltrada : lista">
+  <p-table [value]="listaFiltrada || lista">
     <ng-template pTemplate="header">
       <tr>
         <th pSortableColumn="modelo">

@@ -1,22 +1,16 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {BaseFormComponent} from '../base/base-form.component';
-import {FormBuilder, FormControl, Validators} from '@angular/forms';
+import {Component, Injector, OnInit} from '@angular/core';
+import {BaseFormDirective} from '../base/base-form.directive';
+import {FormControl, Validators} from '@angular/forms';
 import {Veiculo} from './veiculo';
 
 @Component({
   selector: 'app-veiculo-form',
   templateUrl: './veiculo-form.component.html',
 })
-export class VeiculoFormComponent extends BaseFormComponent implements OnInit {
+export class VeiculoFormComponent extends BaseFormDirective<Veiculo> implements OnInit {
 
-  objeto = new Veiculo();
-  displayForm = false;
-  editando = false;
-
-  @Output() addEvent = new EventEmitter<Veiculo>();
-
-  constructor(private fb: FormBuilder) {
-    super();
+  constructor(public injector: Injector) {
+    super(injector);
   }
 
   ngOnInit(): void {
@@ -27,30 +21,5 @@ export class VeiculoFormComponent extends BaseFormComponent implements OnInit {
       placa: new FormControl('', Validators.required),
       valor: new FormControl('', Validators.required),
     });
-  }
-
-  resetForm(): void {
-    this.objeto = new Veiculo();
-    this.displayForm = false;
-    this.form.reset();
-  }
-
-  salvar(): void {
-    if (this.form.valid) {
-        this.addEvent.emit(this.objeto);
-        this.resetForm();
-    } else {
-      this.validaForm();
-    }
-  }
-
-  abrir(objeto?: Veiculo): void {
-    if (objeto) {
-      this.objeto = JSON.parse(JSON.stringify(objeto));
-      this.editando = true;
-    } else {
-      this.editando = false;
-    }
-    this.displayForm = true;
   }
 }

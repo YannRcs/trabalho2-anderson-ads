@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {BaseFormComponent} from '../base/base-form.component';
-import {FormBuilder, FormControl, Validators} from '@angular/forms';
+import {Component, Injector, OnInit} from '@angular/core';
+import {BaseFormDirective} from '../base/base-form.directive';
+import {FormControl, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {MessageService} from 'primeng/api';
 
@@ -45,15 +45,15 @@ import {MessageService} from 'primeng/api';
     }
   `],
 })
-export class LoginComponent extends BaseFormComponent implements OnInit {
+export class LoginComponent extends BaseFormDirective<void> implements OnInit {
 
   usuario: string;
   senha: string;
 
-  constructor(private fb: FormBuilder,
+  constructor(public injector: Injector,
               private router: Router,
               private messageService: MessageService) {
-    super();
+    super(injector);
   }
 
   ngOnInit(): void {
