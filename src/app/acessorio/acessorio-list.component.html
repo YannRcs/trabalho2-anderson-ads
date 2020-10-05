@@ -1,1 +1,68 @@
-<p>acessorio-list works!</p>
+<p-card header="Acessórios">
+
+  <div class="container mb-4">
+    <input (ngModelChange)="filtrar()"
+           [(ngModel)]="filtro"
+           autocomplete="off"
+           class="pesquisar"
+           maxlength="90"
+           pInputText
+           placeholder="Pesquisar">
+    <button (click)="adicionar()"
+            color="primary"
+            mat-fab
+            title="Novo">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+
+  <p-table [value]="listaFiltrada || lista">
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="nome">
+          <span>Nome</span>
+          <p-sortIcon field="nome"></p-sortIcon>
+        </th>
+        <th pSortableColumn="valor">
+          <span>Valor</span>
+          <p-sortIcon field="valor"></p-sortIcon>
+        </th>
+        <th pSortableColumn="cor">
+          <span>Cor</span>
+          <p-sortIcon field="cor"></p-sortIcon>
+        </th>
+        <th pSortableColumn="detalhes">
+          <span>Detalhes</span>
+          <p-sortIcon field="detalhes"></p-sortIcon>
+        </th>
+        <th class="text-center">Ações</th>
+      </tr>
+    </ng-template>
+    <ng-template let-rowData pTemplate="body">
+      <tr>
+        <td>{{rowData?.nome}}</td>
+        <td>{{rowData?.valor | currency: 'BRL'}}</td>
+        <td>{{rowData?.cor}}</td>
+        <td>{{rowData?.detalhes}}</td>
+        <td>
+          <div class="acoes">
+            <button (click)="editar(rowData)" mat-icon-button title="Editar">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button (click)="deletar(rowData)" mat-icon-button title="Remover">
+              <mat-icon>delete_forever</mat-icon>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td class="text-center" colspan="5">Sem registros.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>
+
+<app-acessorio-form (addEvent)="salvar($event)">
+</app-acessorio-form>

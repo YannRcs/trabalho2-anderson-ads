@@ -1,1 +1,70 @@
-<p>acessorio-form works!</p>
+<p-dialog (onHide)="resetForm()"
+          [(visible)]="displayForm"
+          [header]="editando ? 'Acessório (editando)' : 'Acessório'"
+          [modal]="true"
+          [style]="{width: '1000px'}">
+  <form [formGroup]="form">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <label for="nome">Nome:</label>
+            <input [(ngModel)]="objeto.nome"
+                   autocomplete="off"
+                   formControlName="nome"
+                   id="nome"
+                   maxlength="90"
+                   pInputText>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="valor">Valor:</label>
+            <p-inputNumber [(ngModel)]="objeto.valor"
+                           [maxFractionDigits]="2"
+                           [minFractionDigits]="2"
+                           formControlName="valor"
+                           id="valor"
+                           maxlength="15"
+                           mode="decimal"
+                           prefix="R$ "></p-inputNumber>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="cor">Cor:</label>
+            <input [(ngModel)]="objeto.cor"
+                   autocomplete="off"
+                   formControlName="cor"
+                   id="cor"
+                   maxlength="40"
+                   pInputText>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label for="detalhes">Detalhes:</label>
+            <input [(ngModel)]="objeto.detalhes"
+                   autocomplete="off"
+                   formControlName="detalhes"
+                   id="detalhes"
+                   maxlength="120"
+                   pInputText>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <p-footer>
+    <div>
+      <button (click)="displayForm = false"
+              color="primary"
+              mat-raised-button
+              title="Cancelar">Cancelar</button>
+      <button (click)="salvar()"
+              color="primary"
+              mat-raised-button
+              title="Salvar">Salvar</button>
+    </div>
+  </p-footer>
+</p-dialog>
