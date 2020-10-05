@@ -1,5 +1,20 @@
 <app-nav></app-nav>
 <p-toast [preventOpenDuplicates]="true"></p-toast>
+
+<p-confirmDialog #cd header="Confirmação"
+                 icon="pi pi-exclamation-triangle">
+  <p-footer>
+    <button (click)="cd.reject()"
+            color="primary"
+            mat-raised-button
+            title="Não">Não</button>
+    <button (click)="cd.accept()"
+            color="primary"
+            mat-raised-button
+            title="Sim">Sim</button>
+  </p-footer>
+</p-confirmDialog>
+
 <div style="height: 8em"></div>
 <div class="container">
   <router-outlet></router-outlet>

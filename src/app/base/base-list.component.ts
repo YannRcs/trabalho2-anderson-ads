@@ -1,4 +1,4 @@
-import {MessageService} from 'primeng/api';
+import {ConfirmationService, MessageService} from 'primeng/api';
 import {Injector} from '@angular/core';
 
 export abstract class BaseListComponent<T> {
@@ -8,10 +8,12 @@ export abstract class BaseListComponent<T> {
   indexEditando: number = null;
   filtro = '';
   protected messageService: MessageService;
+  protected confirmationService: ConfirmationService;
 
   protected constructor(public injector: Injector,
                         public localStorageKey: string) {
     this.messageService = injector.get(MessageService);
+    this.confirmationService = injector.get(ConfirmationService);
   }
 
   carregaLista(): void {
@@ -32,9 +34,14 @@ export abstract class BaseListComponent<T> {
   }
 
   deletar(rowData: T): void {
-    this.lista = this.lista.filter(e => e !== rowData);
-    localStorage.setItem(this.localStorageKey, JSON.stringify(this.lista));
-    this.messageService.add({severity: 'success', detail: 'Registro removido.'});
+    this.confirmationService.confirm({
+      message: 'Tem certeza que deseja remover?',
+      accept: () => {
+        this.lista = this.lista.filter(e => e !== rowData);
+        localStorage.setItem(this.localStorageKey, JSON.stringify(this.lista));
+        this.messageService.add({severity: 'success', detail: 'Registro removido.'});
+      }
+    });
   }
 
   filtrar(): void {

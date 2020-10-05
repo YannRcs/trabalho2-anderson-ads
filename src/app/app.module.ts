@@ -11,9 +11,11 @@ import {ToastModule} from 'primeng/toast';
 import {InicioComponent} from './inicio/inicio.component';
 import {AcessorioModule} from './acessorio/acessorio.module';
 import {VeiculoModule} from './veiculo/veiculo.module';
-import {MessageService} from 'primeng/api';
+import {ConfirmationService, MessageService} from 'primeng/api';
 import {registerLocaleData} from '@angular/common';
 import ptBr from '@angular/common/locales/pt';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {MatButtonModule} from '@angular/material/button';
 
 registerLocaleData(ptBr);
 
@@ -32,10 +34,13 @@ registerLocaleData(ptBr);
     ToastModule,
     AcessorioModule,
     VeiculoModule,
+    ConfirmDialogModule,
+    MatButtonModule,
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'pt'},
     MessageService,
+    ConfirmationService,
   ],
   bootstrap: [AppComponent]
 })
